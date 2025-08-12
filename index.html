@@ -45,19 +45,19 @@
   <h2>What We Make</h2>
   <h3>Discover our delightful handmade creations</h3>
   <div class="product-list">
-    <div class="product-item">
+    <div class="product-item" data-description="A light and fluffy cake bursting with fresh strawberry flavor, topped with creamy frosting and real strawberries. Perfect for any celebration!">
       <img src="assets/stroberri.png" alt="Strawberry Cake" />
       <span>Strawberry Cake</span>
     </div>
-    <div class="product-item">
+    <div class="product-item" data-description="Rich and decadent chocolate tart with a buttery crust, filled with smooth chocolate ganache. A chocolate lover's dream come true.">
       <img src="assets/Choco.png" alt="Chocolate Tart" />
       <span>Chocolate Tart</span>
     </div>
-    <div class="product-item">
+    <div class="product-item" data-description="Exotic matcha-infused delight with layers of green tea sponge and subtle sweetness. Ideal for those seeking a unique and refreshing treat.">
       <img src="assets/Pandan.png" alt="Matcha Delight" />
       <span>Matcha Delight</span>
     </div>
-    <div class="product-item">
+    <div class="product-item" data-description="Tangy lemon cheesecake with a graham cracker base, creamy filling, and zesty lemon topping. A refreshing dessert for sunny days.">
       <img src="assets/Tart.png" alt="Lemon Cheesecake" />
       <span>Lemon Cheesecake</span>
     </div>
@@ -149,6 +149,16 @@
     <p>&copy; 2025 Oh My Cake. All rights reserved.</p>
   </footer>
 
+  <!-- Product Preview Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img id="modal-image" src="" alt="">
+      <h3 id="modal-title"></h3>
+      <p id="modal-description"></p>
+    </div>
+  </div>
+
   <!-- JavaScript -->
   <script>
     // Smooth scroll
@@ -199,6 +209,37 @@
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   }
+
+  // Product Preview Modal Logic
+  const modal = document.getElementById('product-modal');
+  const modalImage = document.getElementById('modal-image');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDescription = document.getElementById('modal-description');
+  const closeBtn = document.querySelector('.close');
+
+  document.querySelectorAll('.product-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const imgSrc = item.querySelector('img').src;
+      const title = item.querySelector('span').textContent;
+      const description = item.getAttribute('data-description');
+
+      modalImage.src = imgSrc;
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+
+      modal.style.display = 'block';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
   </script>
 
 </body>
